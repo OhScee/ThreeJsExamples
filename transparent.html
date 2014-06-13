@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Transparency Test</title>
+	<title>Transparency Tes</title>
 	<style type="text/css">
 		html{
 			background-color: #87C1DE;
@@ -10,8 +10,7 @@
 	</style>
 </head>
 <body>
-	<script src="three.min.js"></script>
-	<script src="ImageUtils.js"></script>
+	<script src="js/three.min.js"></script>
 	<script>
 		var scene, camera, renderer, sphere;
 
@@ -25,7 +24,7 @@
 			camera.position.z = 20;
 
 			//creating sphere
-			sphere = new THREE.Mesh(new THREE.SphereGeometry(5,5,5), new THREE.MeshLambertMaterial({color: 0xDEF1FA});
+			sphere = new THREE.Mesh(new THREE.SphereGeometry(5,5,5), new THREE.MeshLambertMaterial({color: 0xDEF1FA}));
 			scene.add(sphere);
 
 			var light = new THREE.DirectionalLight(0x00DB12);
@@ -52,7 +51,7 @@
 		function animate(){
 			requestAnimationFrame(animate);
 
-			spehre.rotation.x += .03;
+			sphere.rotation.x += .03;
 			sphere.rotation.y += .01;
 			render();
 		}
