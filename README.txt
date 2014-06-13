@@ -8,6 +8,6 @@ On Mac
 	type "python -m SimpleHTTPServer"
 	press enter
 
-	Open up your browser and type "0.0.0.0:800" into the url
+	Open up your browser and type "0.0.0.0:8000" into the url
 
 Winodws (sorry you'll have to google this one)
