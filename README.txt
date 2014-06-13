@@ -10,4 +10,4 @@ On Mac
 
 	Open up your browser and type "0.0.0.0:800" into the url
 
-Winodws (sorry you'll have to google this one)0
+Winodws (sorry you'll have to google this one)
