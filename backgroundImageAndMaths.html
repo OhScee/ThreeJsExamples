@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Image Wrapping: Cube</title>
+</head>
+<body>
+	<script src="js/three.min.js"></script>
+	<script>
+		var camera, scene, renderer, cube,
+		lat = 0, lon = 90,
+		cubeCam, camScene, 
+		camTarget = new THREE.Vector3();
+
+		var texture = THREE.ImageUtils.loadTexture('textures/cityscape.jpg', new THREE.UVMapping(), function(){
+			init();
+			animate();
+		});
+
+		function init() {
+
+			scene = new THREE.Scene();
+			camScene = new THREE.Scene();
+
+			cube = new THREE.Mesh(new THREE.BoxGeometry(2,2,2), new THREE.MeshLambertMaterial(0xffff55));
+			scene.add(cube);
+
+			camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 0.5, 3000000 );
+			camera.position.z = 10;
+			camera.lookAt(cube.position);
+			//
+			cubeCam = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.5, 3000000);
+			cubeCam.position.z = -10;
+			cubeCam.lookAt(cube);
+			camScene.add(cubeCam);
+			
+			var light = new THREE.AmbientLight(0xA689CC);
+			scene.add(light);
+			directionalLight = new THREE.DirectionalLight(0xffffff, .7);
+			directionalLight.position.set( 2, 5, 15 );
+			scene.add( directionalLight );
+
+			//creating mesh for image
+			var mesh = new THREE.Mesh(new THREE.SphereGeometry(100, 10, 10), new THREE.MeshBasicMaterial({map: texture}));
+			//scales image on mesh
+			mesh.scale.x = -1;
+			mesh.scale.y = 1;
+			camScene.add(mesh);
+			
+			renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+		}
+
+		function animate() {
+			requestAnimationFrame( animate );
+			//rotation speed of camera
+			var rotSpeed = .05;
+			var bgSpeed = 0.05;
+			lon += .1;
+			//old camera coordinates
+			var x = camera.position.x,
+				z = camera.position.z;
+
+			lat = Math.max(-85, Math.min(85, lat));
+			var theta = THREE.Math.degToRad(lon);
+			var phi = THREE.Math.degToRad(90 - lat);
+
+			var radius = 2;
+			//move camera around cube
+			camera.position.x = x * Math.cos(rotSpeed) +  z * Math.sin(rotSpeed);
+			camera.position.z = z * Math.cos(rotSpeed) - x * Math.sin(rotSpeed);
+
+			//move target for camera to give bg moving illusion
+			camTarget.x = 100 * Math.sin(phi) * Math.cos(theta);
+			camTarget.y = 100 * Math.cos(phi);
+			camTarget.z = 100 * Math.sin( phi ) * Math.sin( theta );
+			
+			camera.lookAt(cube.position);
+			cubeCam.lookAt(camTarget);
+
+			render();
+		}
+
+		function render() {
+			renderer.autoClear = false;
+			renderer.clear();
+			renderer.render(camScene, cubeCam);
+			renderer.render( scene, camera );
+
+		}
+
+	</script>
+</body>
+</html>
