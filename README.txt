@@ -1,4 +1,4 @@
-All the code is (mildly) ommented in hopes to be useful for others,
+All the code is (mildly) commented in hopes to be useful for others,
 or course, it also assumes you've gone to the actual three.js website and have done some basic research on your own.
 
 Due to certain restrictions, you may need to run a simple web server to view some of these examples.
