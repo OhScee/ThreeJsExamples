@@ -30,11 +30,18 @@
 		dome = new THREE.Mesh(new THREE.SphereGeometry(7, 20, 15, Math.PI, Math.PI*2, 3*Math.PI/2),new THREE.MeshLambertMaterial({color: 0xCE40F1, ambient: 0xCE40F1}));
 		scene.add(dome);
 
-		var light = new THREE.AmbientLight(0x000000);
+		var origin = new THREE.Mesh(new THREE.SphereGeometry(1,10,10), new THREE.MeshLambertMaterial({color: 0xFA6969, ambient: 0xFA6969}));
+		origin.position = dome.position;
+		scene.add(origin);
+
+		var light = new THREE.AmbientLight(0xffffff);
 		//scene.add(light);
-		light = new THREE.PointLight(0xffffff,1,0);
+		light = new THREE.SpotLight(0xffffff,1,0);
 		light.position.y = 90;
 		light.position.x = 0;
+		scene.add(light);
+
+		light = new THREE.HemisphereLight(0xDEF9FF, 0xFFB5D3, .5);
 		scene.add(light);
 	}
 
